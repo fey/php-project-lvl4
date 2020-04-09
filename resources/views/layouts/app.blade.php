@@ -6,7 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <meta name="csrf-param" content="_token" />
     <title>{{ config('app.name', 'Task Manager') }}</title>
 
     <!-- Scripts -->
@@ -73,8 +73,8 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
+            @include('flash::message')
             @yield('content')
         </main>
     </div>

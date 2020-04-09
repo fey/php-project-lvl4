@@ -13,7 +13,9 @@
                     <th scope="col">#</th>
                     <th scope="col">@lang('name')</th>
                     <th scope="col">@lang('created_at')</th>
+                    @auth
                     <th scope="col">@lang('actions')</th>
+                    @endauth
                 </tr>
                 </thead>
                 <tbody>
@@ -24,9 +26,14 @@
                         <td>{{ $taskStatus->created_at }}</td>
                         <td>
                             @auth
-                            <a href="{{ route('task_statuses.show', $taskStatus) }}">@lang('show')</a>
                             <a href="{{ route('task_statuses.edit', $taskStatus) }}">@lang('edit')</a>
-                            <a href="{{ route('task_statuses.destroy', $taskStatus) }}" class="text-danger">@lang('destroy')</a>
+                            <a href="{{ route('task_statuses.destroy', $taskStatus) }}"
+                               class="text-danger"
+                               data-confirm="Вы уверены?"
+                               data-method="delete"
+                               rel="nofollow">
+                                @lang('destroy')
+                            </a>
                             @endauth
                         </td>
                     </tr>
