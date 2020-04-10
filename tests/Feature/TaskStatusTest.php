@@ -36,9 +36,8 @@ class TaskStatusTest extends TestCase
 
     public function testStore()
     {
-        $taskStatus = TaskStatus::inRandomOrder()->first();
         $indexUrl = route('task_statuses.index');
-        $storeUrl = route('task_statuses.store', $taskStatus);
+        $storeUrl = route('task_statuses.store');
         $name = $this->faker->word;
 
         $this
@@ -53,8 +52,7 @@ class TaskStatusTest extends TestCase
 
     public function testStoreByGuest()
     {
-        $taskStatus = TaskStatus::inRandomOrder()->first();
-        $storeUrl = route('task_statuses.store', $taskStatus);
+        $storeUrl = route('task_statuses.store');
         $loginUrl = route('login');
         $name = $this->faker->word;
 

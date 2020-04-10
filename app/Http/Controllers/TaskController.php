@@ -63,7 +63,7 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        return view('tasks.edit', compact('task'));
+        return view('task.edit', compact('task'));
     }
 
     public function update(Request $request, Task $task)
@@ -89,8 +89,9 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
-        abort_if($task->created_by_id !== auth()->id(), 403);
+        abort_if((string)$task->created_by_id !== (string)auth()->id(), 403);
 
+        $task->delete();
         flash()->success(__('flash.success'));
 
         return redirect()->route('tasks.index');
