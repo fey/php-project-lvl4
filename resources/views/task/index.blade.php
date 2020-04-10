@@ -1,20 +1,24 @@
 @extends('layouts.app')
 @php
 /**
- * @var \Illuminate\Support\Collection|\App\TaskStatus[] $taskStatuses
+ * @var \Illuminate\Support\Collection|\App\Task[] $tasks
  */
 @endphp
 @section('content')
     <div class="container">
         <p>
-            <a href="{{ route('task_statuses.create') }}">@lang('create')</a>
+            <a href="{{ route('tasks.create') }}">@lang('create')</a>
         </p>
         <div class="row justify-content-center">
+
             <table class="table">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">@lang('status')</th>
                     <th scope="col">@lang('name')</th>
+                    <th scope="col">@lang('creator')</th>
+                    <th scope="col">@lang('assignee')</th>
                     <th scope="col">@lang('created_at')</th>
                     @auth
                     <th scope="col">@lang('actions')</th>
@@ -22,22 +26,27 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($taskStatuses as $taskStatus)
+                @foreach($tasks as $task)
                     <tr>
-                        <td>{{ $taskStatus->id }}</td>
-                        <td>{{ $taskStatus->name }}</td>
-                        <td>{{ $taskStatus->created_at }}</td>
+                        <td>{{ $task->id }}</td>
+                        <td>{{ $task->status_id }}</td>
+                        <td><a href="{{ route('tasks.show', $task) }}">{{ $task->name }}</a></td>
+                        <td>{{ $task->created_by_id }}</td>
+                        <td>{{ $task->assigned_to_id }}</td>
+                        <td>{{ $task->created_at }}</td>
                         <td>
-                            @auth
-                            <a href="{{ route('task_statuses.edit', $taskStatus) }}">@lang('edit')</a>
-                            <a href="{{ route('task_statuses.destroy', $taskStatus) }}"
+                        @auth
+                            <a href="{{ route('tasks.edit', $task) }}">@lang('edit')</a>
+                            @if((string)auth()->id() === (string)$task->created_by_id)
+                            <a href="{{ route('tasks.destroy', $task) }}"
                                class="text-danger"
                                data-confirm="Вы уверены?"
                                data-method="delete"
                                rel="nofollow">
                                 @lang('destroy')
                             </a>
-                            @endauth
+                            @endif
+                        @endauth
                         </td>
                     </tr>
                 @endforeach
