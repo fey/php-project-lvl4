@@ -15,14 +15,11 @@ class TaskTest extends TestCase
     use WithFaker;
     use RefreshDatabase;
 
-    private User $user;
-
     public function setUp(): void
     {
         parent::setUp();
 
         $this->seed(TaskStatusSeeder::class);
-        $this->user = factory(User::class)->create();
 
         $taskStatuses = TaskStatus::all();
 

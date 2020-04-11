@@ -14,14 +14,11 @@ class TaskStatusTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    private User $user;
-
     public function setUp(): void
     {
         parent::setUp();
 
         $this->seed(TaskStatusSeeder::class);
-        $this->user = factory(User::class)->create();
     }
 
     public function testIndex()
