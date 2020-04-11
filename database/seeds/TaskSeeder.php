@@ -43,5 +43,10 @@ class TaskSeeder extends Seeder
                 'created_by_id' => 1,
             ]
         ]);
+
+        Db::table('tasks')->update([
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }

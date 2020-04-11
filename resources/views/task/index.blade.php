@@ -9,7 +9,7 @@
 @section('content')
     <div class="container">
         <h1>@lang('layout.tasks')</h1>
-        <div class="d-flex">
+        <div class="d-flex mb-2">
             @auth
             <p><a class="btn btn-success" href="{{ route('tasks.create') }}">@lang('layout.common.buttons.create')</a></p>
             @endauth
