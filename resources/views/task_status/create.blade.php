@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row justify-content-center">
             {!! Form::model($taskStatus, ['url' => route('task_statuses.store', $taskStatus), 'method' => 'POST']) !!}
-            {!! Form::label('name', __('name')) !!}
+            {!! Form::label('name', __('name'), ['class' => 'required']) !!}
             {!! Form::text('name') !!}
             {!! Form::token() !!}
             {!! Form::submit() !!}

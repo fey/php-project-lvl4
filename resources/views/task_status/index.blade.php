@@ -6,9 +6,11 @@
 @endphp
 @section('content')
     <div class="container">
+        @auth
         <p>
             <a class="btn btn-success" href="{{ route('task_statuses.create') }}">@lang('create')</a>
         </p>
+        @endauth
         <div class="row justify-content-center">
             <table class="table">
                 <thead>

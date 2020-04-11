@@ -28,7 +28,15 @@ class LabelController extends Controller
 
     public function store(Request $request)
     {
-        abort(404);
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        $label = new Label();
+        $label->name = $request->input('name');
+        $label->saveOrFail();
+
+        return redirect()->route('labels.index');
     }
 
     public function show(Label $label)
@@ -43,11 +51,20 @@ class LabelController extends Controller
 
     public function update(Request $request, Label $label)
     {
-        abort(404);
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        $label->name = $request->input('name');
+        $label->saveOrFail();
+
+        return redirect()->route('labels.index');
     }
 
     public function destroy(Label $label)
     {
-        abort(404);
+        $label->delete();
+
+        return redirect()->route('labels.index');
     }
 }

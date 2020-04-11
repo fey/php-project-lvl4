@@ -6,9 +6,11 @@
 @endphp
 @section('content')
     <div class="container">
+        @auth
         <p>
             <a class="btn btn-success" href="{{ route('tasks.create') }}">@lang('create')</a>
         </p>
+        @endauth
         <div class="row justify-content-center">
 
             <table class="table">
@@ -31,8 +33,8 @@
                         <td>{{ $task->id }}</td>
                         <td>{{ $task->status_id }}</td>
                         <td><a href="{{ route('tasks.show', $task) }}">{{ $task->name }}</a></td>
-                        <td>{{ $task->created_by_id }}</td>
-                        <td>{{ $task->assigned_to_id }}</td>
+                        <td>{{ $task->creator->name }}</td>
+                        <td>{{ $task->assignee->name }}</td>
                         <td>{{ $task->created_at }}</td>
                         <td>
                         @auth

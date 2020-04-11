@@ -6,9 +6,11 @@
 @endphp
 @section('content')
     <div class="container">
+        @auth
         <p>
             <a class="btn btn-success" href="{{ route('labels.create') }}">@lang('create')</a>
         </p>
+        @endauth
         <div class="row justify-content-center">
             <table class="table">
                 <thead>
@@ -22,15 +24,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($taskStatuses as $taskStatus)
+                @foreach($labels as $label)
                     <tr>
-                        <td>{{ $taskStatus->id }}</td>
-                        <td>{{ $taskStatus->name }}</td>
-                        <td>{{ $taskStatus->created_at }}</td>
+                        <td>{{ $label->id }}</td>
+                        <td>{{ $label->name }}</td>
+                        <td>{{ $label->created_at }}</td>
                         <td>
                             @auth
-                            <a href="{{ route('task_statuses.edit', $taskStatus) }}">@lang('edit')</a>
-                            <a href="{{ route('task_statuses.destroy', $taskStatus) }}"
+                            <a href="{{ route('labels.edit', $label) }}">@lang('edit')</a>
+                            <a href="{{ route('labels.destroy', $label) }}"
                                class="text-danger"
                                data-confirm="Вы уверены?"
                                data-method="delete"

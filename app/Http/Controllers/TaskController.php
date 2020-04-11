@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Label;
 use App\Task;
 use App\TaskStatus;
+use App\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -24,12 +26,26 @@ class TaskController extends Controller
     public function create()
     {
         $task = new Task();
+
+        $labels = Label::all();
         $taskStatuses = TaskStatus::all()
             ->mapWithKeys(fn(TaskStatus $taskStatus) => [
                 $taskStatus->id => $taskStatus->name
             ]);
+        $users = User::all()
+            ->mapWithKeys(fn(User $user) => [
+                $user->id => $user->name
+            ]);
 
-        return view('task.create', compact('task', 'taskStatuses'));
+        $view = view('task.create', compact('task', 'taskStatuses', 'labels', 'users'));
+
+        if ($taskStatuses->isEmpty()) {
+            return $view->withErrors([
+                'empty_statuses' => __('empty_statuses')
+            ]);
+        }
+
+        return $view;
     }
 
     public function store(Request $request)
@@ -42,14 +58,16 @@ class TaskController extends Controller
         ]);
 
         $task = new Task();
-        $task->created_by_id = auth()->id();
 
         $task->name = $request->input('name');
         $task->description = $request->input('description');
-        $task->status_id = $request->input('status_id', 1);
-        $task->assigned_to_id = $request->input('assigned_to_id');
+
+        $task->status()->associate($request->input('status_id', 1));
+        $task->creator()->associate(auth()->user());
+        $task->assignee()->associate($request->input('assigned_to_id'));
 
         $task->saveOrFail();
+        $task->labels()->attach($request->input('labels'));
 
         flash()->success(__('flash.success'));
 
@@ -63,7 +81,18 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        return view('task.edit', compact('task'));
+        $labels = Label::all();
+
+        $taskStatuses = TaskStatus::all()
+            ->mapWithKeys(fn(TaskStatus $taskStatus) => [
+                $taskStatus->id => $taskStatus->name
+            ]);
+        $users = User::all()
+            ->mapWithKeys(fn(User $user) => [
+                $user->id => $user->name
+            ]);
+
+        return view('task.edit', compact('task', 'labels', 'taskStatuses', 'users'));
     }
 
     public function update(Request $request, Task $task)
@@ -77,10 +106,13 @@ class TaskController extends Controller
 
         $task->name = $request->input('name');
         $task->description = $request->input('description');
-        $task->status_id = $request->input('status_id', 1);
-        $task->assigned_to_id = $request->input('assigned_to_id');
+
+        $task->status()->associate($request->input('status_id', 1));
+        $task->creator()->associate(auth()->user());
+        $task->assignee()->associate($request->input('assigned_to_id'));
 
         $task->saveOrFail();
+        $task->labels()->sync($request->input('labels'));
 
         flash()->success(__('flash.success'));
 
@@ -91,6 +123,7 @@ class TaskController extends Controller
     {
         abort_if((string)$task->created_by_id !== (string)auth()->id(), 403);
 
+        $task->labels()->detach();
         $task->delete();
         flash()->success(__('flash.success'));
 

@@ -8,7 +8,7 @@ class Task extends Model
 {
     public function labels()
     {
-        return $this->belongsToMany(Label::class);
+        return $this->belongsToMany(Label::class, 'task_label')->withTimestamps();
     }
 
     public function status()
@@ -23,6 +23,9 @@ class Task extends Model
 
     public function assignee()
     {
-        return $this->belongsTo(User::class, 'assigned_to_id');
+        return $this->belongsTo(User::class, 'assigned_to_id')
+            ->withDefault([
+                'name' => _('not_assigned')
+            ]);
     }
 }
