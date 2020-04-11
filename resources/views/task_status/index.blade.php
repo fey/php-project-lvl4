@@ -7,7 +7,7 @@
 @section('content')
     <div class="container">
         <p>
-            <a class="btn btn-success" href="{{ route('tasks.create') }}">@lang('create')</a>
+            <a class="btn btn-success" href="{{ route('task_statuses.create') }}">@lang('create')</a>
         </p>
         <div class="row justify-content-center">
             <table class="table">
