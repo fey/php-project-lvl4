@@ -11,6 +11,15 @@ class LabelSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Label::class, 5)->create();
+        DB::table('labels')->insert([
+            ['name' => 'Critical'],
+            ['name' => 'High'],
+            ['name' => 'Medium'],
+            ['name' => 'Low'],
+        ]);
+        DB::table('labels')->update([
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }

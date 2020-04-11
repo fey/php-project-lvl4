@@ -11,10 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(UsersTableSeeder::class);
         $this->call(TaskStatusSeeder::class);
         $this->call(LabelSeeder::class);
-        if (!env('production')) {
-            $this->call(UsersTableSeeder::class);
-        }
+        $this->call(TaskSeeder::class);
     }
 }
