@@ -12,7 +12,7 @@
                     <h1 class="card-title">@lang('layout.task.form.create_title')</h1>
                     {!! Form::model($task, ['url' => route('tasks.store', $task), 'method' => 'POST']) !!}
                     @include('task._form')
-                    {!! Form::submit(__('task.form.create'), ['class' => 'btn btn-primary']) !!}
+                    {!! Form::submit(__('layout.common.buttons.create'), ['class' => 'btn btn-primary']) !!}
                     {!! Form::close() !!}
                 </div>
             </div>

@@ -42,7 +42,12 @@
                     <tr>
                         <td>{{ $task->id }}</td>
                         <td>{{ $task->status->name }}</td>
-                        <td><a href="{{ route('tasks.show', $task) }}">{{ $task->name }}</a></td>
+                        <td>
+                            <a href="{{ route('tasks.show', $task) }}">{{ $task->name }}</a>
+                            @foreach($task->labels as $label)
+                            <span class="badge badge-pill badge-primary">{{ $label->name }}</span>
+                            @endforeach
+                        </td>
                         <td>{{ $task->creator->name }}</td>
                         <td>{{ $task->assignee->name }}</td>
                         <td>{{ $task->created_at }}</td>

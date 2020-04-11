@@ -21,7 +21,7 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = QueryBuilder::for(Task::class)
-            ->with('creator', 'status', 'assignee', 'status')
+            ->with('creator', 'status', 'assignee', 'status', 'labels')
             ->allowedFilters(
                 AllowedFilter::exact('status_id'),
                 AllowedFilter::exact('created_by_id'),
