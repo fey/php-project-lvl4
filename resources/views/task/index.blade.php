@@ -2,17 +2,29 @@
 @php
 /**
  * @var \Illuminate\Support\Collection|\App\Task[] $tasks
+ * @var \Illuminate\Support\Collection|\App\User[] $users
+ * @var \Illuminate\Support\Collection $taskStatuses
  */
 @endphp
 @section('content')
     <div class="container">
-        @auth
-        <p>
-            <a class="btn btn-success" href="{{ route('tasks.create') }}">@lang('create')</a>
-        </p>
-        @endauth
-        <div class="row justify-content-center">
+        <div class="d-flex">
+            @auth
+                <p>
+                    <a class="btn btn-success" href="{{ route('tasks.create') }}">@lang('create')</a>
+                </p>
+            @endauth
+            <div class="ml-auto">
+                {!! Form::open(['class' => 'form-inline', 'method' => 'GET']) !!}
+                {!! Form::select('filter[status_id]', $taskStatuses, null, ['placeholder' => __('status'), 'class' => 'form-control mr-2']) !!}
+                {!! Form::select('filter[created_by_id]', $users, null, ['placeholder' => __('creator'), 'class' => 'form-control mr-2']) !!}
+                {!! Form::select('filter[assigned_to_id]', $users, null, ['placeholder' => __('assignee'), 'class' => 'form-control mr-2']) !!}
+                {!! Form::submit(__('apply'), ['class' => 'btn btn-outline-primary mr-2']) !!}
+                {!! Form::close() !!}
+            </div>
+        </div>
 
+        <div class="row justify-content-center my-2">
             <table class="table">
                 <thead>
                 <tr>
@@ -31,7 +43,7 @@
                 @foreach($tasks as $task)
                     <tr>
                         <td>{{ $task->id }}</td>
-                        <td>{{ $task->status_id }}</td>
+                        <td>{{ $task->status->name }}</td>
                         <td><a href="{{ route('tasks.show', $task) }}">{{ $task->name }}</a></td>
                         <td>{{ $task->creator->name }}</td>
                         <td>{{ $task->assignee->name }}</td>

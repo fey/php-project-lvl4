@@ -29,6 +29,27 @@ class LabelTest extends TestCase
             ->assertSee($label->name);
     }
 
+    public function testCreate()
+    {
+        $label = Label::inRandomOrder()->first();
+        $createUrl = route('labels.create', $label);
+
+        $this->actingAs($this->user);
+
+        $response = $this->get($createUrl);
+        $response->assertOk();
+    }
+
+    public function testCreateByGuest()
+    {
+        $label = Label::inRandomOrder()->first();
+        $createUrl = route('labels.create', $label);
+
+        $response = $this->get($createUrl);
+        $response->assertRedirect();
+        $this->assertGuest();
+    }
+
     public function testStore()
     {
         $indexUrl = route('labels.index');

@@ -42,6 +42,37 @@ class TaskTest extends TestCase
             ->assertSee($task->name);
     }
 
+    public function testShow()
+    {
+        $task = Task::inRandomOrder()->first();
+        $showUrl = route('tasks.show', $task);
+        $response = $this->get($showUrl);
+        $response
+            ->assertOk()
+            ->assertSee($task->name);
+    }
+
+    public function testCreate()
+    {
+        $task = Task::inRandomOrder()->first();
+        $createUrl = route('tasks.create', $task);
+
+        $this->actingAs($this->user);
+
+        $response = $this->get($createUrl);
+        $response->assertOk();
+    }
+
+    public function testCreateByGuest()
+    {
+        $task = Task::inRandomOrder()->first();
+        $createUrl = route('tasks.create', $task);
+
+        $response = $this->get($createUrl);
+        $response->assertRedirect();
+        $this->assertGuest();
+    }
+
     public function testStore()
     {
         $taskStatus = TaskStatus::inRandomOrder()->first();

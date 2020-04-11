@@ -31,6 +31,27 @@ class TaskStatusTest extends TestCase
             ->assertSee($taskStatus->name);
     }
 
+    public function testCreate()
+    {
+        $taskStatus = TaskStatus::inRandomOrder()->first();
+        $createUrl = route('task_statuses.create', $taskStatus);
+
+        $this->actingAs($this->user);
+
+        $response = $this->get($createUrl);
+        $response->assertOk();
+    }
+
+    public function testCreateByGuest()
+    {
+        $taskStatus = TaskStatus::inRandomOrder()->first();
+        $createUrl = route('task_statuses.create', $taskStatus);
+
+        $response = $this->get($createUrl);
+        $response->assertRedirect();
+        $this->assertGuest();
+    }
+
     public function testStore()
     {
         $indexUrl = route('task_statuses.index');
