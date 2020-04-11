@@ -25,7 +25,7 @@ class Task extends Model
     {
         return $this->belongsTo(User::class, 'assigned_to_id')
             ->withDefault([
-                'name' => _('not_assigned')
+                'name' => __('layout.task.unassigned')
             ]);
     }
 }

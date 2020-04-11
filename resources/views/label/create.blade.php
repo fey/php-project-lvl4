@@ -7,12 +7,15 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            {!! Form::model($label, ['url' => route('labels.store', $label), 'method' => 'POST']) !!}
-            {!! Form::label('name', __('name'), ['class' => 'required']) !!}
-            {!! Form::text('name') !!}
-            {!! Form::token() !!}
-            {!! Form::submit() !!}
-            {!! Form::close() !!}
+            <div class="card w-50 min">
+                <div class="card-body">
+                    <h1 class="card-title">@lang('label.create')</h1>
+                    {!! Form::model($label, ['url' => route('labels.store', $label), 'method' => 'POST']) !!}
+                    @include('label._form')
+                    {!! Form::submit(null, ['class' => 'btn btn-primary']) !!}
+                    {!! Form::close() !!}
+                </div>
+            </div>
         </div>
     </div>
 @endsection

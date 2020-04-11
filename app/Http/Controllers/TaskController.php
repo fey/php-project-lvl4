@@ -21,6 +21,7 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = QueryBuilder::for(Task::class)
+            ->with('creator', 'status', 'assignee', 'status')
             ->allowedFilters(
                 AllowedFilter::exact('status_id'),
                 AllowedFilter::exact('created_by_id'),
@@ -86,7 +87,7 @@ class TaskController extends Controller
         $task->saveOrFail();
         $task->labels()->attach($request->input('labels'));
 
-        flash()->success(__('flash.success'));
+        flash()->success(__('layout.flash.success'));
 
         return redirect()->route('tasks.show', $task);
     }
@@ -131,18 +132,23 @@ class TaskController extends Controller
         $task->saveOrFail();
         $task->labels()->sync($request->input('labels'));
 
-        flash()->success(__('flash.success'));
+        flash()->success(__('layout.flash.success'));
 
         return redirect()->route('tasks.show', $task);
     }
 
     public function destroy(Task $task)
     {
-        abort_if((string)$task->created_by_id !== (string)auth()->id(), 403);
+        /** @var User $currentUser */
+        $currentUser = auth()->user();
+
+        if (!$currentUser->isCreator($task)) {
+            abort(403);
+        }
 
         $task->labels()->detach();
         $task->delete();
-        flash()->success(__('flash.success'));
+        flash()->success(__('layout.flash.success'));
 
         return redirect()->route('tasks.index');
     }

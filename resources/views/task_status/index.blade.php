@@ -6,20 +6,20 @@
 @endphp
 @section('content')
     <div class="container">
+        <h1>@lang('layout.task_statuses')</h1>
         @auth
         <p>
-            <a class="btn btn-success" href="{{ route('task_statuses.create') }}">@lang('create')</a>
+            <a class="btn btn-success" href="{{ route('task_statuses.create') }}">@lang('layout.common.buttons.create')</a>
         </p>
         @endauth
-        <div class="row justify-content-center">
             <table class="table">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">@lang('name')</th>
-                    <th scope="col">@lang('created_at')</th>
+                    <th scope="col">@lang('layout.common.name')</th>
+                    <th scope="col">@lang('layout.common.created_at')</th>
                     @auth
-                    <th scope="col">@lang('actions')</th>
+                    <th scope="col">@lang('layout.common.actions')</th>
                     @endauth
                 </tr>
                 </thead>
@@ -31,13 +31,13 @@
                         <td>{{ $taskStatus->created_at }}</td>
                         <td>
                             @auth
-                            <a href="{{ route('task_statuses.edit', $taskStatus) }}">@lang('edit')</a>
+                            <a href="{{ route('task_statuses.edit', $taskStatus) }}">@lang('layout.common.edit')</a>
                             <a href="{{ route('task_statuses.destroy', $taskStatus) }}"
                                class="text-danger"
-                               data-confirm="Вы уверены?"
+                               data-confirm="@lang('layout.common.confirm_destroy')"
                                data-method="delete"
                                rel="nofollow">
-                                @lang('destroy')
+                                @lang('layout.common.destroy')
                             </a>
                             @endauth
                         </td>
@@ -45,6 +45,5 @@
                 @endforeach
                 </tbody>
             </table>
-        </div>
     </div>
 @endsection

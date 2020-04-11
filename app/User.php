@@ -36,4 +36,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isCreator(Task $task): bool
+    {
+        return $task->creator->id === $this->id;
+    }
 }

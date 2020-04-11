@@ -34,7 +34,7 @@ class TaskStatusController extends Controller
 
         $taskStatus->name = $request->input('name');
         $taskStatus->saveOrFail();
-        flash()->success(__('flash.success'));
+        flash()->success(__('layout.flash.success'));
         return redirect()->route('task_statuses.index');
     }
 
@@ -53,7 +53,7 @@ class TaskStatusController extends Controller
         $this->validate($request, ['name' => 'required']);
         $taskStatus->name = $request->input('name');
         $taskStatus->saveOrFail();
-        flash()->success(__('flash.success'));
+        flash()->success(__('layout.flash.success'));
 
         return redirect()->route('task_statuses.index');
     }
@@ -61,11 +61,11 @@ class TaskStatusController extends Controller
     public function destroy(TaskStatus $taskStatus)
     {
         if ($taskStatus->tasks()->exists()) {
-            flash()->error('status_has_tasks');
+            flash()->error(__('layout.flash.status_has_tasks'));
             return back();
         }
         $taskStatus->delete();
-        flash()->success(__('flash.success'));
+        flash()->success(__('layout.flash.success'));
 
         return back();
     }
