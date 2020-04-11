@@ -7,7 +7,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="card w-50 min">
+            <div class="card col-md-8">
                 <div class="card-body">
                     <h1 class="card-title">@lang('label.edit')</h1>
                     {!! Form::model($label, ['url' => route('labels.update', $label), 'method' => 'PATCH']) !!}

@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'task_manager' => 'Task Manager',
+    'home' => [
+        'description' => 'Task management system',
+        'view_tasks' => 'View tasks'
+    ],
     'flash' => [
         'success' => 'Success',
         'status_has_tasks' => 'Oops! Status can be deleted if it has tasks'

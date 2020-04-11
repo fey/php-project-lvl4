@@ -2,17 +2,10 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-
-                    You are logged in!
-                </div>
-            </div>
-        </div>
+    <div class="jumbotron mt-3">
+        <h1>@lang('layout.task_manager')</h1>
+        <p class="lead">@lang('layout.home.description')</p>
+        <a class="btn btn-lg btn-primary" href="{{ route('tasks.index') }}" role="button">@lang('layout.home.view_tasks') »</a>
     </div>
 </div>
 @endsection
