@@ -10,9 +10,7 @@
     <div class="container">
         <div class="d-flex">
             @auth
-                <p>
-                    <a class="btn btn-success" href="{{ route('tasks.create') }}">@lang('create')</a>
-                </p>
+            <p><a class="btn btn-success" href="{{ route('tasks.create') }}">@lang('create')</a></p>
             @endauth
             <div class="ml-auto">
                 {!! Form::open(['class' => 'form-inline', 'method' => 'GET']) !!}
@@ -23,7 +21,6 @@
                 {!! Form::close() !!}
             </div>
         </div>
-
         <div class="row justify-content-center my-2">
             <table class="table">
                 <thead>
@@ -54,7 +51,7 @@
                             @if((string)auth()->id() === (string)$task->created_by_id)
                             <a href="{{ route('tasks.destroy', $task) }}"
                                class="text-danger"
-                               data-confirm="Вы уверены?"
+                               data-confirm="@lang('confirm')"
                                data-method="delete"
                                rel="nofollow">
                                 @lang('destroy')
