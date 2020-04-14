@@ -35,16 +35,6 @@ class LabelTest extends TestCase
         $response->assertOk();
     }
 
-    public function testCreateByGuest()
-    {
-        $label = Label::inRandomOrder()->first();
-        $createUrl = route('labels.create', $label);
-
-        $response = $this->get($createUrl);
-        $response->assertRedirect();
-        $this->assertGuest();
-    }
-
     public function testStore()
     {
         $indexUrl = route('labels.index');
@@ -57,21 +47,9 @@ class LabelTest extends TestCase
 
         $response = $this->post($storeUrl, ['name' => $name]);
         $response->assertRedirect($indexUrl);
+        $response->assertSessionDoesntHaveErrors();
 
         $this->assertDatabaseHas('labels', ['name' => $name]);
-    }
-
-    public function testStoreByGuest()
-    {
-        $storeUrl = route('labels.store');
-        $loginUrl = route('login');
-        $name = $this->faker->word;
-
-        $response = $this->post($storeUrl, ['name' => $name]);
-        $response->assertRedirect($loginUrl);
-
-        $this->assertGuest();
-        $this->assertDatabaseMissing('labels', ['name' => $name]);
     }
 
     public function testUpdate()
@@ -87,22 +65,9 @@ class LabelTest extends TestCase
 
         $response = $this->patch($storeUrl, ['name' => $name]);
         $response->assertRedirect($indexUrl);
+        $response->assertSessionDoesntHaveErrors();
 
         $this->assertDatabaseHas('labels', ['name' => $name]);
-    }
-
-    public function testUpdateByGuest()
-    {
-        $label = Label::inRandomOrder()->first();
-        $updateUrl = route('labels.update', $label);
-        $loginUrl = route('login');
-        $name = $this->faker->word;
-
-        $response = $this->patch($updateUrl, ['name' => $name]);
-        $response->assertRedirect($loginUrl);
-
-        $this->assertGuest();
-        $this->assertDatabaseMissing('labels', ['name' => $name]);
     }
 
     public function testEdit()
@@ -118,18 +83,6 @@ class LabelTest extends TestCase
             ->assertSee($label->name);
     }
 
-    public function testEditByGuest()
-    {
-        $label = Label::inRandomOrder()->first();
-        $editUrl = route('labels.edit', $label);
-        $loginUrl = route('login');
-
-        $response = $this->get($editUrl);
-
-        $this->assertGuest();
-        $response->assertRedirect($loginUrl);
-    }
-
     public function testDelete()
     {
         $label = Label::inRandomOrder()->first();
@@ -140,20 +93,8 @@ class LabelTest extends TestCase
 
         $response = $this->delete($deleteUrl);
         $response->assertRedirect($indexUrl);
+        $response->assertSessionDoesntHaveErrors();
 
         $this->assertDeleted($label);
-    }
-
-    public function testDeleteByGuest()
-    {
-        $label = Label::inRandomOrder()->first();
-        $deleteUrl = route('labels.destroy', $label);
-
-        $loginUrl = route('login');
-
-        $response = $this->delete($deleteUrl);
-        $response->assertRedirect($loginUrl);
-
-        $this->assertDatabaseHas('labels', $label->only('id', 'name'));
     }
 }
