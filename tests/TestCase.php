@@ -9,9 +9,9 @@ use Illuminate\Foundation\Testing\WithFaker;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication,
-        WithFaker,
-        RefreshDatabase;
+    use CreatesApplication;
+    use WithFaker;
+    use RefreshDatabase;
 
     protected User $user;
 
