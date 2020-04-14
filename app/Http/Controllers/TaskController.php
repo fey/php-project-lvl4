@@ -80,7 +80,7 @@ class TaskController extends Controller
         $task->name = $request->input('name');
         $task->description = $request->input('description');
 
-        $task->status()->associate($request->input('status_id', 1));
+        $task->status()->associate($request->input('status_id'));
         $task->creator()->associate(auth()->user());
         $task->assignee()->associate($request->input('assigned_to_id'));
 
@@ -139,12 +139,7 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
-        /** @var User $currentUser */
-        $currentUser = auth()->user();
-
-        if (!$currentUser->isCreator($task)) {
-            abort(403);
-        }
+        $this->authorize('delete', $task);
 
         $task->labels()->detach();
         $task->delete();

@@ -24,8 +24,6 @@ class Task extends Model
     public function assignee()
     {
         return $this->belongsTo(User::class, 'assigned_to_id')
-            ->withDefault([
-                'name' => __('layout.task.unassigned')
-            ]);
+            ->withDefault(fn(User $user) => $user->make([]));
     }
 }
