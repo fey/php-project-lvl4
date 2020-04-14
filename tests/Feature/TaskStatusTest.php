@@ -3,17 +3,11 @@
 namespace Tests\Feature;
 
 use App\TaskStatus;
-use App\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use TaskStatusSeeder;
 use Tests\TestCase;
 
 class TaskStatusTest extends TestCase
 {
-    use RefreshDatabase;
-    use WithFaker;
-
     public function setUp(): void
     {
         parent::setUp();

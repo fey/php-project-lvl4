@@ -3,16 +3,11 @@
 namespace Tests\Feature;
 
 use App\Label;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use LabelSeeder;
 use Tests\TestCase;
 
 class LabelTest extends TestCase
 {
-    use WithFaker;
-    use RefreshDatabase;
-
     public function setUp(): void
     {
         parent::setUp();
