@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class TaskSeeder extends Seeder
 {
@@ -44,7 +45,10 @@ class TaskSeeder extends Seeder
             ]
         ]);
 
-        Db::table('tasks')->update([
+        Db::table('tasks')
+            ->whereNull('created_at')
+            ->whereNull('updated_at')
+            ->update([
             'created_at' => now(),
             'updated_at' => now(),
         ]);

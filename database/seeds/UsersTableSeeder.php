@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UsersTableSeeder extends Seeder
 {
@@ -17,5 +18,12 @@ class UsersTableSeeder extends Seeder
             ['name' => 'Vanya', 'email' => 'vanya@example.com', 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'],
             ['name' => 'Diman', 'email' => 'diman@example.com', 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'],
         ]);
+        Db::table('users')
+            ->whereNull('created_at')
+            ->whereNull('updated_at')
+            ->update([
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
     }
 }

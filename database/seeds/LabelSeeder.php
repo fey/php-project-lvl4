@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class LabelSeeder extends Seeder
 {
@@ -17,9 +18,12 @@ class LabelSeeder extends Seeder
             ['name' => 'Medium'],
             ['name' => 'Low'],
         ]);
-        DB::table('labels')->update([
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        DB::table('labels')
+            ->whereNull('created_at')
+            ->whereNull('updated_at')
+            ->update([
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
     }
 }
