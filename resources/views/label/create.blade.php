@@ -10,9 +10,9 @@
             <div class="card col-md-8">
                 <div class="card-body">
                     <h1 class="card-title">@lang('label.create')</h1>
-                    {!! Form::model($label, ['url' => route('labels.store', $label), 'method' => 'POST']) !!}
+                    {!! Form::open()->fill($label)->route('labels.store', [$label])->locale('layout.label.form') !!}
                     @include('label._form')
-                    {!! Form::submit(null, ['class' => 'btn btn-primary']) !!}
+                    {!! Form::submit(__('layout.common.buttons.create')) !!}
                     {!! Form::close() !!}
                 </div>
             </div>

@@ -9,10 +9,10 @@
         <div class="row justify-content-center">
             <div class="card col-md-8">
                 <div class="card-body">
-                    <h1 class="card-title">@lang('label.edit')</h1>
-                    {!! Form::model($label, ['url' => route('labels.update', $label), 'method' => 'PATCH']) !!}
+                    <h1 class="card-title">@lang('layout.label.form.edit_title')</h1>
+                    {!! Form::open()->patch()->fill($label)->route('labels.update', [$label])->locale('layout.label.form') !!}
                     @include('label._form')
-                    {!! Form::submit(null, ['class' => 'btn btn-primary']) !!}
+                    {!! Form::submit(__('layout.common.buttons.save'))->success() !!}
                     {!! Form::close() !!}
                 </div>
             </div>

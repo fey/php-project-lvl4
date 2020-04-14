@@ -10,9 +10,9 @@
             <div class="card col-md-8">
                 <div class="card-body">
                     <h1 class="card-title">@lang('layout.task_status.form.edit_title')</h1>
-                    {!! Form::model($taskStatus, ['url' => route('task_statuses.update', $taskStatus), 'method' => 'PATCH']) !!}
-                    @include('task_status._form')
-                    {!! Form::submit(null, ['class' => 'btn btn-primary']) !!}
+                    {!! Form::open()->patch()->fill($taskStatus)->route('task_statuses.update', [$taskStatus])->locale('layout.label.form') !!}
+                    @include('label._form')
+                    {!! Form::submit(__('layout.common.buttons.save'))->success() !!}
                     {!! Form::close() !!}
                 </div>
             </div>

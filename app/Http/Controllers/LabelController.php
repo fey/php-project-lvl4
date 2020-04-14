@@ -35,6 +35,7 @@ class LabelController extends Controller
         $label = new Label();
         $label->name = $request->input('name');
         $label->saveOrFail();
+        flash()->success(__('layout.flash.success'));
 
         return redirect()->route('labels.index');
     }
@@ -57,6 +58,7 @@ class LabelController extends Controller
 
         $label->name = $request->input('name');
         $label->saveOrFail();
+        flash()->success(__('layout.flash.success'));
 
         return redirect()->route('labels.index');
     }
@@ -64,6 +66,7 @@ class LabelController extends Controller
     public function destroy(Label $label)
     {
         $label->delete();
+        flash()->success(__('layout.flash.success'));
 
         return redirect()->route('labels.index');
     }
