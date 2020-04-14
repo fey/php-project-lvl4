@@ -10,10 +10,9 @@
             <div class="card col-md-8">
                 <div class="card-body">
                     <h1 class="card-title">@lang('layout.task.form.create_title')</h1>
-                    {!! Form::model($task, ['url' => route('tasks.store', $task), 'method' => 'POST']) !!}
+                    {!! Form::open()->fill($task)->route('tasks.store')->locale('layout.task.form') !!}
                     @include('task._form')
-                    {!! Form::submit(__('layout.common.buttons.create'), ['class' => 'btn btn-primary']) !!}
-                    {!! Form::close() !!}
+                    {!! Form::close(); !!}
                 </div>
             </div>
         </div>
