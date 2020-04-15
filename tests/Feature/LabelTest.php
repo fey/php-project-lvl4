@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Label;
-use LabelSeeder;
 use Tests\TestCase;
 
 class LabelTest extends TestCase
@@ -11,7 +10,6 @@ class LabelTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->seed(LabelSeeder::class);
     }
 
     public function testIndex()

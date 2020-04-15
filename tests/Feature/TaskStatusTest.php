@@ -3,18 +3,10 @@
 namespace Tests\Feature;
 
 use App\TaskStatus;
-use TaskStatusSeeder;
 use Tests\TestCase;
 
 class TaskStatusTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->seed(TaskStatusSeeder::class);
-    }
-
     public function testIndex()
     {
         $taskStatus = TaskStatus::inRandomOrder()->first();

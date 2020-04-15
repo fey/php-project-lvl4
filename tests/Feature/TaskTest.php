@@ -10,23 +10,6 @@ use Tests\TestCase;
 
 class TaskTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->seed(TaskStatusSeeder::class);
-
-        $taskStatuses = TaskStatus::all();
-
-        $tasks = factory(Task::class, 5)->make();
-
-        $tasks->each(function (Task $task) use ($taskStatuses) {
-            $task->status_id = $taskStatuses->random()->id;
-            $task->created_by_id = $this->user->id;
-            $task->save();
-        });
-    }
-
     public function testIndex()
     {
         $task = Task::inRandomOrder()->first();
@@ -122,7 +105,7 @@ class TaskTest extends TestCase
         $deleteUrl = route('tasks.destroy', $task);
 
         $indexUrl = route('tasks.index');
-        $this->actingAs($this->user)->from($indexUrl);
+        $this->actingAs($task->creator)->from($indexUrl);
 
         $response = $this->delete($deleteUrl);
         $response->assertRedirect($indexUrl);

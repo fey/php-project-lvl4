@@ -23,25 +23,25 @@ class TaskSeeder extends Seeder
                 'name' => 'Task 2',
                 'description' => 'Task description',
                 'status_id' => 1,
-                'created_by_id' => 1,
+                'created_by_id' => 2,
             ],
             [
                 'name' => 'Task 3',
                 'description' => 'Task description',
                 'status_id' => 1,
-                'created_by_id' => 1,
+                'created_by_id' => 3,
             ],
             [
                 'name' => 'Task 4',
                 'description' => 'Task description',
                 'status_id' => 1,
-                'created_by_id' => 1,
+                'created_by_id' => 4,
             ],
             [
                 'name' => 'Task 5',
                 'description' => 'Task description',
                 'status_id' => 1,
-                'created_by_id' => 1,
+                'created_by_id' => 5,
             ]
         ]);
 
