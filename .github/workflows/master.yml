@@ -7,10 +7,25 @@ on:
   push:
     branches:
       - 'master'
+      - 'develop'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
     - uses: actions/checkout@v1
 
@@ -23,8 +38,17 @@ jobs:
     - name: Check lint
       run: make lint
 
-    - name: Execute tests (Unit and Feature tests) via PHPUnit
+    - name: Execute tests with SQLite
       run: make test
+
+    - name: Execute tests PostgreSQL
+      run: |
+        echo $DB_CONNECTION
+        make test
+      env:
+        DB_CONNECTION: pgsql
+        DB_DATABASE: postgres
+        DB_PASSWORD: postgres
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
