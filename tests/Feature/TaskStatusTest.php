@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Task;
 use App\TaskStatus;
 use Tests\TestCase;
 

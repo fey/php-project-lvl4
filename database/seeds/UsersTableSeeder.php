@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
             ['name' => 'Petya', 'email' => 'petya@example.com', 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'],
             ['name' => 'Vanya', 'email' => 'vanya@example.com', 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'],
             ['name' => 'Diman', 'email' => 'diman@example.com', 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'],
+            ['name' => 'Kolyan', 'email' => 'kolyan@example.com', 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'],
         ]);
         Db::table('users')
             ->whereNull('created_at')

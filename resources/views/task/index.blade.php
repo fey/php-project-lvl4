@@ -13,15 +13,15 @@
             @auth
             <p><a class="btn btn-success" href="{{ route('tasks.create') }}">@lang('layout.common.buttons.create')</a></p>
             @endauth
-{{--            <div class="ml-auto">--}}
-{{--                {!! Form::open(['class' => 'form-inline', 'method' => 'GET']) !!}--}}
-{{--                    {!! Form::select('filter[status_id]', $taskStatuses, null, ['placeholder' => __('layout.common.task_status'), 'class' => 'form-control mr-2']) !!}--}}
-{{--                    {!! Form::select('filter[created_by_id]', $users, null, ['placeholder' => __('layout.task.creator'), 'class' => 'form-control mr-2']) !!}--}}
-{{--                    {!! Form::select('filter[assigned_to_id]', $users, null, ['placeholder' => __('layout.task.assignee'), 'class' => 'form-control mr-2']) !!}--}}
-{{--                    {!! Form::submit(__('layout.task.filter.apply'), ['class' => 'btn btn-outline-primary mr-2']) !!}--}}
-{{--                    <a href="{{ route('tasks.index') }}" class="btn btn-outline-secondary">@lang('layout.task.filter.reset')</a>--}}
-{{--                {!! Form::close() !!}--}}
-{{--            </div>--}}
+            <div class="ml-auto">
+                {!! Form::open()->get()->formInline(__('layout.common.task_status')) !!}
+                    {!! Form::select('filter[status_id]', null, $taskStatuses)->attrs(['mr-2']) !!}
+                    {!! Form::select('filter[created_by_id]', null, $creators)->attrs(['mr-2']) !!}
+                    {!! Form::select('filter[assigned_to_id]', null, $assigns)->attrs(['mr-2']) !!}
+                    {!! Form::submit(__('layout.task.filter.apply'))->outline()->attrs(['mr-2']) !!}
+                    <a href="{{ route('tasks.index') }}" class="btn btn-outline-secondary">@lang('layout.task.filter.reset')</a>
+                {!! Form::close() !!}
+            </div>
         </div>
             <table class="table">
                 <thead>

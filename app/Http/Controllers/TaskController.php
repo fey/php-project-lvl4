@@ -32,13 +32,18 @@ class TaskController extends Controller
         $taskStatuses = TaskStatus::all()
             ->mapWithKeys(fn(TaskStatus $taskStatus) => [
                 $taskStatus->id => $taskStatus->name
-            ]);
+            ])
+            ->prepend(__('layout.task.form.choose_status'), '');
+
         $users = User::all()
             ->mapWithKeys(fn(User $user) => [
                 $user->id => $user->name
             ]);
 
-        return view('task.index', compact('tasks', 'taskStatuses', 'users'));
+        $creators = $users->prepend(__('layout.task.creator'), '');
+        $assigns = $users->prepend(__('layout.task.assignee'), '');
+
+        return view('task.index', compact('tasks', 'taskStatuses', 'users', 'creators', 'assigns'));
     }
 
     public function create()
