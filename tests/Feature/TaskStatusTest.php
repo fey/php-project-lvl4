@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Task;
 use App\TaskStatus;
 use Tests\TestCase;
 
@@ -78,7 +79,7 @@ class TaskStatusTest extends TestCase
 
     public function testDelete()
     {
-        $taskStatus = TaskStatus::inRandomOrder()->first();
+        $taskStatus = TaskStatus::whereDoesntHave('tasks')->inRandomOrder()->first();
         $deleteUrl = route('task_statuses.destroy', $taskStatus);
 
         $indexUrl = route('task_statuses.index');

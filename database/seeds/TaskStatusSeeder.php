@@ -16,7 +16,8 @@ class TaskStatusSeeder extends Seeder
             ['name' => 'New'],
             ['name' => 'Work in progress'],
             ['name' => 'Testing'],
-            ['name' => 'Done']
+            ['name' => 'Done'],
+            ['name' => 'Unused']
         ]);
 
         Db::table('task_statuses')
