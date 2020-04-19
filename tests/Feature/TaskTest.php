@@ -84,7 +84,7 @@ class TaskTest extends TestCase
 
         $this->assertDatabaseHas('tasks', array_merge([
             'id' => $task->id,
-            'created_by_id' => $this->user->id,
+            'created_by_id' => $task->creator->id,
         ], $data));
     }
 
