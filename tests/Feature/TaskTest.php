@@ -57,6 +57,7 @@ class TaskTest extends TestCase
         ];
         $response = $this->post($storeUrl, $data);
         $response->assertRedirect();
+        $response->assertSessionDoesntHaveErrors();
 
         $this->assertDatabaseHas('tasks', array_merge($data, ['created_by_id' => $this->user->id]));
     }
@@ -79,6 +80,7 @@ class TaskTest extends TestCase
         ];
         $response = $this->patch($updateUrl, $data);
         $response->assertRedirect();
+        $response->assertSessionDoesntHaveErrors();
 
         $this->assertDatabaseHas('tasks', array_merge([
             'id' => $task->id,
@@ -109,6 +111,7 @@ class TaskTest extends TestCase
 
         $response = $this->delete($deleteUrl);
         $response->assertRedirect($indexUrl);
+        $response->assertSessionDoesntHaveErrors();
 
         $this->assertDeleted($task);
     }

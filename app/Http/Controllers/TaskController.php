@@ -16,6 +16,7 @@ class TaskController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->authorizeResource(Task::class);
     }
 
     public function index()
@@ -130,7 +131,7 @@ class TaskController extends Controller
         $task->name = $request->input('name');
         $task->description = $request->input('description');
 
-        $task->status()->associate($request->input('status_id', 1));
+        $task->status()->associate($request->input('status_id'));
         $task->creator()->associate(auth()->user());
         $task->assignee()->associate($request->input('assigned_to_id'));
 
