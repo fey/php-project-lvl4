@@ -13,7 +13,7 @@
 {!! Form::select('status_id', 'status', $taskStatuses) !!}
 <div class="form-group">
     @foreach($labels as $label)
-        {!! Form::checkbox('labels[]', $label->name, $label->id)->id("label_{$label->id}")->locale('') !!}
+        {!! Form::checkbox('labels[]', $label->name, $label->id, $taskLabels->has($label->id))->id("label_{$label->id}")->locale('') !!}
     @endforeach
 </div>
 {!! Form::submit(__('layout.common.buttons.save')) !!}

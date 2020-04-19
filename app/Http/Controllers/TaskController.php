@@ -106,6 +106,7 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         $labels = Label::all();
+        $taskLabels = $task->labels->keyBy->id;
 
         $taskStatuses = TaskStatus::all()
             ->mapWithKeys(fn(TaskStatus $taskStatus) => [
@@ -116,7 +117,7 @@ class TaskController extends Controller
                 $user->id => $user->name
             ]);
 
-        return view('task.edit', compact('task', 'labels', 'taskStatuses', 'users'));
+        return view('task.edit', compact('task', 'labels', 'taskStatuses', 'users', 'taskLabels'));
     }
 
     public function update(Request $request, Task $task)
