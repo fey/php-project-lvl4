@@ -132,7 +132,6 @@ class TaskController extends Controller
         $task->description = $request->input('description');
 
         $task->status()->associate($request->input('status_id'));
-        $task->creator()->associate(auth()->user());
         $task->assignee()->associate($request->input('assigned_to_id'));
 
         $task->saveOrFail();
