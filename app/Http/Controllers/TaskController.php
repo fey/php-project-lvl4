@@ -50,6 +50,7 @@ class TaskController extends Controller
     public function create()
     {
         $task = new Task();
+        $taskLabels = $task->labels->keyBy->id;
 
         $labels = Label::all();
         $taskStatuses = TaskStatus::all()
@@ -61,7 +62,7 @@ class TaskController extends Controller
                 $user->id => $user->name
             ]);
 
-        $view = view('task.create', compact('task', 'taskStatuses', 'labels', 'users'));
+        $view = view('task.create', compact('task', 'taskStatuses', 'labels', 'users', 'taskLabels'));
 
         if ($taskStatuses->isEmpty()) {
             return $view->withErrors([
