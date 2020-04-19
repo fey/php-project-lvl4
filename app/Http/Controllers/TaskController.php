@@ -145,9 +145,6 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
-        $this->authorize('delete', $task);
-
-        $task->labels()->detach();
         $task->delete();
         flash()->success(__('layout.flash.success'));
 

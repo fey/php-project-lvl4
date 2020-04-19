@@ -49,7 +49,7 @@
                             @endforeach
                         </td>
                         <td>{{ $task->creator->name }}</td>
-                        <td>{{ $task->assignee->name ?? __('layout.task.unassigned') }}</td>
+                        <td>{{ getTaskAssignee($task)->name }}</td>
                         <td>{{ $task->created_at }}</td>
                         <td>
                         @auth
